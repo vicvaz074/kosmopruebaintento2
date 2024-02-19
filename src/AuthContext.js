@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/login', { // Asegúrate de ajustar la URL según tu configuración
+      const response = await fetch('/login', { // Asegúrate de ajustar la URL según tu configuración
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (username, email, password) => {
     try {
       // Asume una ruta de API '/api/registrarse' para el registro
-      const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/registrarse', {
+      const response = await fetch('/registrarse', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
