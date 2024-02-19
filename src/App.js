@@ -236,12 +236,6 @@ useEffect(() => {
             <li className="nav-item" onClick={closeNav}>
               <NavLink className="nav-link" to="/#contactanos">Contáctanos</NavLink>
             </li>
-            <li className="nav-item" onClick={closeNav}>
-              <NavLink className="nav-link" to="/login">Login</NavLink>
-            </li>
-            <li className="nav-item" onClick={closeNav}>
-              <NavLink className="nav-link" to="/registrarse">Registrarse</NavLink>
-            </li>
             {isAuthenticated ? (
                 <>
                   <li className="nav-item" onClick={closeNav}>
