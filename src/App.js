@@ -30,6 +30,7 @@ import PrivateRoute from './PrivateRoute';
 import { AuthProvider } from './AuthContext';
 
 
+
 const KosmoCustomizationComponent = () => {
   const [outfitIndex, setOutfitIndex] = useState(0);
   const outfits = [outfitRed, outfitBlue, outfitYellow];

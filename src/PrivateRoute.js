@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { AuthContext } from './AuthContext'; // Asegúrate de importar correctamente el contexto
+import { useAuth } from './AuthContext'; // Asegúrate de que la ruta sea correcta
 
 const PrivateRoute = ({ children }) => {
-  const { isAuthenticated } = useContext(AuthContext); // Usa el contexto para determinar si el usuario está autenticado
+  const { isAuthenticated } = useAuth(); // Utiliza useAuth para obtener el estado de autenticación
 
-  // Redirect to login if not authenticated, otherwise render children
+  // Redirige a login si no está autenticado, de lo contrario, renderiza los children
   return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
