@@ -1,9 +1,4 @@
 import React, { createContext, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-const navigate = useNavigate();
-
-const AuthContext = createContext(); // Declaración única de AuthContext
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -16,7 +11,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('token', token);
     setIsAuthenticated(true);
   };
-  
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
