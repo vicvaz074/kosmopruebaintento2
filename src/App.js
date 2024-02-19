@@ -95,11 +95,12 @@ function App() {
     setIsAuthenticated(!!token);
   }, []);
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    setIsAuthenticated(false);
-    // Redirigir al usuario a la página de inicio o de login
-  };
+const logout = () => {
+  localStorage.removeItem('token');
+  setIsAuthenticated(false);
+  navigate('/#inicio'); // O simplemente navigate('/') para redirigir a la raíz
+};
+
   
   
 const ChatButton = ({ setShowModal }) => {
