@@ -26,8 +26,9 @@ import head from './assets/img/CABEZA.png';
 import KosmoModalBot from './KosmoModalBot';
 import StoreComponent from './StoreComponent';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
-import { useAuth, AuthProvider } from './AuthContext'; // Ajusta la ruta según sea necesario
+import {AuthProvider } from './AuthContext'; // Ajusta la ruta según sea necesario
 
 const KosmoCustomizationComponent = () => {
   const [outfitIndex, setOutfitIndex] = useState(0);
@@ -82,12 +83,14 @@ function App() {
   const [isHovering, setIsHovering] = useState(false);
   const [navExpanded, setNavExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const closeNav = () => {
     setNavExpanded(false);
   };
+
 
   const logout = () => {
     localStorage.removeItem('token');
