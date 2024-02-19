@@ -12,27 +12,9 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(!!token);
   }, []);
 
-  const login = async (username, password) => {
-    try {
-      const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/login', { // Asegúrate de ajustar la URL según tu configuración
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-      const data = await response.json();
-      if (data.token) {
-        localStorage.setItem('token', data.token);
-        setIsAuthenticated(true);
-        return true;
-      } else {
-        throw new Error(data.error || 'Inicio de sesión fallido');
-      }
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
+  const login = (token) => {
+    localStorage.setItem('token', token);
+    setIsAuthenticated(true);
   };
 
   const logout = () => {
@@ -40,35 +22,9 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
-  // Método para registro (ajustar según necesidad)
-  const register = async (username, email, password) => {
-    try {
-      // Asume una ruta de API '/api/registrarse' para el registro
-      const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/registrarse', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, email, password }),
-      });
-      const data = await response.json();
-      if (data.token) {
-        localStorage.setItem('token', data.token);
-        setIsAuthenticated(true);
-        return true;
-      } else {
-        throw new Error(data.error || 'Registro fallido');
-      }
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-  };
-
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, register }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
