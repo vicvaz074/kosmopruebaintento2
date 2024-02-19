@@ -4,21 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { DarkModeProvider } from './DarkModeContext';
-
-
+import { AuthProvider } from './path/to/AuthContext'; // Asegúrate de ajustar la ruta a tu AuthContext
 
 const container = document.getElementById('root');
-const root = createRoot(container); // createRoot(container!) if you use TypeScript
+const root = createRoot(container);
 root.render(
   <React.StrictMode>
-    <DarkModeProvider>
-      <App />
-    </DarkModeProvider>
+    <AuthProvider> {/* Envuelve tu aplicación con AuthProvider */}
+      <DarkModeProvider> {/* DarkModeProvider ya está correctamente envolviendo App */}
+        <App />
+      </DarkModeProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-
