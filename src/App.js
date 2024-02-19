@@ -27,7 +27,7 @@ import KosmoModalBot from './KosmoModalBot';
 import StoreComponent from './StoreComponent';
 import { Link } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
-import {AuthProvider } from './AuthContext'; // Ajusta la ruta según sea necesario
+import { useAuth, AuthProvider } from './AuthContext'; // Ajusta la ruta según sea necesario
 
 const KosmoCustomizationComponent = () => {
   const [outfitIndex, setOutfitIndex] = useState(0);
@@ -82,7 +82,6 @@ function App() {
   const [isHovering, setIsHovering] = useState(false);
   const [navExpanded, setNavExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -91,10 +90,15 @@ function App() {
   };
 
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, []);
+
   const logout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
-    navigate('/#inicio'); // O simplemente navigate('/') para redirigir a la raíz
+    // Redirigir al usuario a la página de inicio o de login
   };
   
   
