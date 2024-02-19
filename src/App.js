@@ -89,7 +89,10 @@ function App() {
     setNavExpanded(false);
   };
 
-
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, []);
   
   
 const ChatButton = ({ setShowModal }) => {
