@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="178px" height="330px" viewBox="0 0 178 329" version="1.1">
+<defs>
+<clipPath id="clip1">
+  <rect x="0" y="0" width="93" height="93"/>
+</clipPath>
+<g id="surface5" clip-path="url(#clip1)">
+<rect x="0" y="0" width="93" height="93" style="fill:rgb(10.588235%,7.843137%,39.215686%);fill-opacity:1;stroke:none;"/>
+</g>
+<pattern id="pattern0" patternUnits="userSpaceOnUse" width="93" height="93" patternTransform="matrix(1.006185,0,0,1.004505,-925.915727,-2889.433388)">
+<use xlink:href="#surface5"/>
+</pattern>
+<clipPath id="clip2">
+  <rect x="0" y="0" width="93" height="93"/>
+</clipPath>
+<g id="surface8" clip-path="url(#clip2)">
+<rect x="0" y="0" width="93" height="93" style="fill:rgb(14.901961%,18.039216%,78.823529%);fill-opacity:1;stroke:none;"/>
+</g>
+<pattern id="pattern1" patternUnits="userSpaceOnUse" width="93" height="93" patternTransform="matrix(1.006185,0,0,1.004505,-925.915727,-2889.433388)">
+<use xlink:href="#surface8"/>
+</pattern>
+<clipPath id="clip3">
+  <rect x="0" y="0" width="93" height="93"/>
+</clipPath>
+<g id="surface11" clip-path="url(#clip3)">
+<rect x="0" y="0" width="93" height="93" style="fill:rgb(14.901961%,18.039216%,78.823529%);fill-opacity:1;stroke:none;"/>
+</g>
+<pattern id="pattern2" patternUnits="userSpaceOnUse" width="93" height="93" patternTransform="matrix(1.006185,0,0,1.004505,-925.915727,-2889.433388)">
+<use xlink:href="#surface11"/>
+</pattern>
+<clipPath id="clip4">
+  <rect x="0" y="0" width="93" height="93"/>
+</clipPath>
+<g id="surface14" clip-path="url(#clip4)">
+<rect x="0" y="0" width="93" height="93" style="fill:rgb(10.588235%,7.843137%,39.215686%);fill-opacity:1;stroke:none;"/>
+</g>
+<pattern id="pattern3" patternUnits="userSpaceOnUse" width="93" height="93" patternTransform="matrix(1.006185,0,0,1.004505,-925.915727,-2889.433388)">
+<use xlink:href="#surface14"/>
+</pattern>
+<clipPath id="clip5">
+  <rect x="0" y="0" width="93" height="93"/>
+</clipPath>
+<g id="surface17" clip-path="url(#clip5)">
+<rect x="0" y="0" width="93" height="93" style="fill:rgb(14.901961%,18.039216%,78.823529%);fill-opacity:1;stroke:none;"/>
+</g>
+<pattern id="pattern4" patternUnits="userSpaceOnUse" width="93" height="93" patternTransform="matrix(1.006185,0,0,1.004505,-925.915727,-2889.433388)">
+<use xlink:href="#surface17"/>
+</pattern>
+<clipPath id="clip6">
+  <rect x="0" y="0" width="93" height="93"/>
+</clipPath>
+<g id="surface20" clip-path="url(#clip6)">
+<rect x="0" y="0" width="93" height="93" style="fill:rgb(14.901961%,18.039216%,78.823529%);fill-opacity:1;stroke:none;"/>
+</g>
+<pattern id="pattern5" patternUnits="userSpaceOnUse" width="93" height="93" patternTransform="matrix(1.006185,0,0,1.004505,-925.915727,-2889.433388)">
+<use xlink:href="#surface20"/>
+</pattern>
+<clipPath id="clip7">
+  <rect x="0" y="0" width="93" height="93"/>
+</clipPath>
+<g id="surface23" clip-path="url(#clip7)">
+<rect x="0" y="0" width="93" height="93" style="fill:rgb(14.901961%,18.039216%,78.823529%);fill-opacity:1;stroke:none;"/>
+</g>
+<pattern id="pattern6" patternUnits="userSpaceOnUse" width="93" height="93" patternTransform="matrix(1.006185,0,0,1.004505,-925.915727,-2889.433388)">
+<use xlink:href="#surface23"/>
+</pattern>
+</defs>
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(6.27451%,5.882353%,28.627451%);fill-opacity:1;" d="M 178 68.886719 L 164.304688 60.75 L 110.191406 49.683594 L 40.75 58.796875 L 0 65.628906 L 40.75 90.039062 L 138.554688 87.4375 Z M 178 68.886719 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:url(#pattern0);" d="M 53.464844 6.398438 L 27.386719 11.601562 L 0 65.628906 L 40.75 58.796875 Z M 53.464844 6.398438 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:url(#pattern1);" d="M 138.554688 8.351562 L 150.613281 14.863281 L 178 68.886719 L 164.304688 60.75 Z M 138.554688 8.351562 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:url(#pattern2);" d="M 102.527344 6.398438 L 138.554688 8.351562 L 162.707031 55.21875 L 109.863281 44.476562 L 40.75 55.546875 L 53.464844 6.398438 Z M 102.527344 6.398438 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(20.392157%,18.823529%,93.72549%);fill-opacity:1;" d="M 40.75 55.546875 L 109.863281 44.476562 L 164.304688 55.546875 L 164.304688 60.75 L 110.191406 49.683594 L 40.75 58.796875 Z M 40.75 55.546875 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:url(#pattern3);" d="M 73.761719 35.671875 L 107.695312 39.074219 L 130.199219 35.84375 L 117.65625 4.144531 L 98.398438 1.664062 L 74.679688 2.574219 Z M 73.761719 35.671875 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:url(#pattern4);" d="M 75.296875 34.136719 L 109.234375 37.539062 L 130.199219 35.84375 L 119.191406 2.617188 L 99.925781 0.128906 L 76.210938 1.042969 Z M 75.296875 34.136719 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:url(#pattern5);" d="M 54.03125 229.246094 L 41.929688 328.871094 L 88.183594 319.414062 L 83.417969 229.246094 Z M 54.03125 229.246094 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:url(#pattern6);" d="M 148.199219 229.246094 L 160.304688 328.871094 L 114.054688 319.414062 L 118.8125 229.246094 Z M 148.199219 229.246094 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(6.27451%,5.882353%,28.627451%);fill-opacity:1;" d="M 41.929688 328.871094 L 21.957031 298.847656 L 35.246094 234.902344 L 54.03125 229.246094 Z M 41.929688 328.871094 "/>
+</g>
+</svg>

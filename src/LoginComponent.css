@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap');
+
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0; /* Ajusta el color de fondo según sea necesario */
+  color: white;
+  font-family: 'IBM Plex Mono', monospace;
+  position: relative;
+  overflow: hidden; /* Evita que el contenido sobresalga */
+}
+
+.login-panel-wrapper {
+  width: 1080px; /* Ancho del marco */
+  background-color: #f0f0f0;
+  height: 640px; /* Altura del marco */
+  display: flex; /* Utiliza flexbox para centrar el panel sesgado */
+  align-items: center;
+  justify-content: center;
+  border: 10px solid #f0f0f0; /* Borde rectangular recto */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative; /* Posicionamiento relativo para el z-index */
+  z-index: 2; /* Asegúrate de que esta capa esté sobre el fondo pero debajo del panel sesgado */
+  overflow: hidden; /* Esto asegura que los bordes sesgados del panel no sean visibles fuera del marco */
+}
+
+.login-panel {
+  background-color: #262EC9; /* Color de fondo del panel sesgado */
+  width: calc(100% - 2rem); /* Ajusta el ancho para el padding */
+  height: calc(100% - 2rem); /* Ajusta la altura para el padding */
+  padding: 7rem; /* Espacio interior */
+  box-sizing: border-box; /* Incluye el padding en el cálculo de la altura y ancho */
+  transform: skewX(-2deg) skewY(-1deg); /* Inclinaciones para el efecto visual deseado */
+  position: absolute; /* Posicionamiento absoluto para alinearse correctamente dentro del marco */
+  display: flex; /* Esto asegurará que sus hijos estén centrados */
+  align-items: center; /* Centra verticalmente los elementos hijos */
+  justify-content: center; /* Centra horizontalmente los elementos hijos */
+}
+
+.login-content {
+  transform: skewX(2deg) skewY(1deg); /* Transformación inversa para anular el sesgo del panel */
+  box-sizing: border-box; /* Asegúrate de que el padding y el borde se incluyan en el cálculo del ancho y la altura */
+  text-align: center; /* Centra el texto si es necesario */
+  max-width: 305px; /* Ajusta el ancho según sea necesario */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-panel h1 {
+  margin-bottom: 2rem;
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+}
+
+.login-form h1 {
+  margin-bottom: 2rem;
+  text-align: center;
+  
+}
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid white; /* Borde blanco */
+  background: transparent;
+  color: white;
+}
+
+.loginButton {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: white;
+  color: #262EC9;
+  cursor: pointer;
+}
+
+.input-group {
+  position: relative; /* Para posicionar los iconos de manera absoluta dentro de cada grupo de entrada */
+  margin-bottom: 1rem;
+}
+
+.input-icon {
+  position: absolute;
+  left: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px; /* Ajusta el tamaño de los iconos según necesites */
+  height: auto;
+  pointer-events: none; /* Esto asegura que el icono no interfiera con la entrada del usuario */
+}
+
+
+
+.loginButton:hover {
+  background: #f7f7f7d8;
+}
+
+.login-register-link {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.login-register-link span {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.login-robot {
+  display: none;
+}
+
+.login-robot-big {
+  position: absolute;
+  transform: translateX(-110%) translateY(18%); /* Esto inicialmente lo mueve fuera de la vista */
+  background-color: #262EC9;
+  border: 10px solid white;
+  border-radius: 50%;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 470px; /* Considera usar vw para responsividad */
+  height: 470px; /* Considera usar vh para responsividad */
+  z-index: 3;
+}
+
+
+.login-robot-big img {
+  max-width: 550px;
+  max-height: 550px;
+  width: 100%;
+  height: auto;
+  z-index: 3;
+}
+
+.floating-robot {
+  animation: float 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Estilo para alerta */
+.alert {
+  color: red;
+  transform: translateY(-20%);
+}
+
+/* Estilo para alerta en teléfonos móviles */
+@media (max-width: 768px) {
+  .alert {
+    width: 90%; /* Ancho para teléfonos móviles */
+    transform: translateY(0%);
+  }
+}
+
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); } /* Ajusta la cantidad de flotación aquí */
+}
+
+@media (max-width: 768px) {
+
+  .login-wrapper {
+    flex-direction: column;
+    justify-content: center;
+    height: auto; /* Ajusta la altura según el contenido */
+    padding-top: 4rem; /* Añade espacio en la parte superior para alejarse de la navbar */
+    padding-bottom: 2rem; /* Agrega espacio en la parte inferior */
+  }
+
+  .login-panel-wrapper  {
+    width: 95%; /* Ancho del marco */
+    margin-top: 2rem;
+    background-color: #f0f0f0;
+    height: 700px; /* Altura del marco */
+    display: flex; /* Utiliza flexbox para centrar el panel sesgado */
+    align-items: center;
+    justify-content: center;
+    border: 6px solid #f0f0f0; /* Borde rectangular recto */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* Posicionamiento relativo para el z-index */
+    z-index: 2; /* Asegúrate de que esta capa esté sobre el fondo pero debajo del panel sesgado */
+    overflow: hidden; /* Esto asegura que los bordes sesgados del panel no sean visibles fuera del marco */
+  }
+
+  .login-panel {
+    width: 95%;
+    margin: 2rem auto; /* Aumenta el margen superior para más espacio desde la parte superior */
+    padding-bottom: 260px; /* Espacio extra en la parte inferior para el robot */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+
+  .login-content h1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 190%; /* Ajusta esto para cambiar el ancho del contenido */
+    max-width: 400px; /* O usa una medida específica para establecer un máximo */
+    padding: 0rem; /* Ajusta el padding para controlar el espacio interior */
+  }
+
+  .login-content .login-form {
+    width: 180%;
+    max-width: 400px; /* O usa una medida específica para establecer un máximo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  .login-content h1 {
+    margin-bottom: 1.5rem;
+    margin-top: 0rem;
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+  }
+
+
+  .login-robot {
+    position: static; /* Elimina la posición absoluta */
+    position: static; /* Elimina la posición absoluta */
+    margin: 1rem auto 0; /* Centra el robot y agrega margen superior */
+    margin-bottom: -11rem;
+    width: 110px; /* Tamaño del círculo */
+    height: 110px; /* Tamaño del círculo */
+    background-color: #262EC9; /* Fondo azul para el círculo detrás del robot */
+    border: 3px solid white; /* Contorno blanco */
+    border-radius: 50%; /* Hace que el fondo sea circular */
+    display: flex;
+    transform: translateX(0%);
+    transform: translateY(-25%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ajusta la sombra */
+  }
+
+  .login-robot-big {
+    position: fixed; /* Opcional, dependiendo de cómo quieras que se comporte */
+    left: 50%;
+    transform: translateX(-50%) translateY(0); /* Centrado horizontalmente */
+    bottom: 5vh; /* Ajusta para visibilidad */
+    width: 35vw;
+    height: 35vw;
+    display: none;
+  }
+
+
+  .floating-robot {
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-robot-big {
+    display: none; /* Puedes optar por ocultarlo si interfiere con otros elementos */
+  }
+}

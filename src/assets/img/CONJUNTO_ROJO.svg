@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 215.06 453.24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ba1924;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #e20000;
+      }
+
+      .cls-3 {
+        fill: #ed0000;
+      }
+
+      .cls-4 {
+        fill: #c40000;
+      }
+
+      .cls-5 {
+        fill: red;
+      }
+
+      .cls-6 {
+        fill: #ba0000;
+      }
+
+      .cls-7 {
+        fill: #8c0000;
+      }
+    </style>
+  </defs>
+  <g id="Capa_1-2" data-name="Capa 1">
+    <g>
+      <g>
+        <g>
+          <polygon class="cls-7" points="205.1 87.73 54.36 101.83 22.6 120.7 117.27 115.67 205.1 87.73"/>
+          <polygon class="cls-1" points="0 55.29 39.08 1.59 59.82 98.63 22.6 120.7 0 55.29"/>
+          <polygon class="cls-3" points="205.1 87.73 181.97 0 39.08 1.59 54.36 101.83 205.1 87.73"/>
+        </g>
+        <g>
+          <polygon class="cls-6" points="205.35 86.3 81.23 109.01 154.34 69.79 205.35 86.3"/>
+          <polygon class="cls-2" points="76.51 111.99 152.79 65.76 154.34 74.34 85.55 112.33 76.51 111.99"/>
+          <polygon class="cls-5" points="154.34 74.34 205.35 86.3 203.5 76.05 152.79 65.76 154.34 74.34"/>
+          <polyline class="cls-4" points="152.79 65.76 52.31 101.1 76.51 111.99"/>
+        </g>
+      </g>
+      <polygon class="cls-3" points="66.69 327.18 51.4 453.24 109.83 441.28 103.82 327.18 66.69 327.18"/>
+      <polygon class="cls-3" points="199.77 327.18 215.06 453.24 156.63 441.28 162.65 327.18 199.77 327.18"/>
+      <polygon class="cls-1" points="51.4 453.24 26.17 415.25 42.96 334.34 66.69 327.18 51.4 453.24"/>
+    </g>
+  </g>
+</svg>

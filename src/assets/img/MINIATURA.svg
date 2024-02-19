@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 865.27 486.71">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #999;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9, .cls-10 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #b0b4bb;
+      }
+
+      .cls-3 {
+        fill: #90959a;
+      }
+
+      .cls-4 {
+        fill: #262ec9;
+      }
+
+      .cls-5 {
+        fill: none;
+      }
+
+      .cls-6 {
+        fill: gray;
+      }
+
+      .cls-7 {
+        fill: #b3b3b3;
+      }
+
+      .cls-8 {
+        fill: #333;
+      }
+
+      .cls-9 {
+        fill: #ccc;
+      }
+
+      .cls-11 {
+        clip-path: url(#clippath);
+      }
+
+      .cls-10 {
+        fill: #f2f2f2;
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-5" width="865.27" height="486.71"/>
+    </clipPath>
+  </defs>
+  <g id="Capa_1-2" data-name="Capa 1">
+    <g>
+      <rect class="cls-4" width="865.27" height="486.71"/>
+      <g class="cls-11">
+        <g>
+          <g>
+            <polygon class="cls-7" points="528 253.42 536.78 317.71 363.32 427.34 389.69 386.64 528 253.42"/>
+            <polygon class="cls-1" points="574.25 345.93 536.78 317.71 363.32 427.34 393.39 420.87 574.25 345.93"/>
+            <polygon class="cls-10" points="566.85 283.95 574.25 345.93 536.78 317.71 528 253.42 566.85 283.95"/>
+          </g>
+          <g>
+            <polygon class="cls-6" points="473.37 311.68 238.96 301.18 157.33 349.58 371.33 361.06 473.37 311.68"/>
+            <polygon class="cls-10" points="524.1 119.25 473.37 311.68 238.96 301.18 193.48 88.35 524.1 119.25"/>
+            <polygon class="cls-7" points="107.76 206.13 193.48 88.35 238.96 301.18 157.33 349.58 107.76 206.13"/>
+            <ellipse class="cls-8" cx="297.22" cy="226" rx="18.65" ry="20.25"/>
+            <ellipse class="cls-8" cx="424.39" cy="233.47" rx="18.65" ry="20.25"/>
+          </g>
+          <g>
+            <polyline class="cls-6" points="197.79 437.5 251.06 587.02 261.8 603.14 229.07 473.17"/>
+            <polyline class="cls-3" points="229.07 473.17 243.73 353.45 213.92 361.06 197.79 437.5"/>
+            <polyline class="cls-9" points="403.02 469.75 311.65 600.21 261.8 603.14 229.07 473.17"/>
+            <polyline class="cls-10" points="229.07 473.17 243.73 353.45 389.83 356.38 403.02 469.75"/>
+          </g>
+          <g>
+            <polygon class="cls-2" points="73.58 522.85 120.32 492.12 197.79 376.13 185.67 385.22 73.58 522.85"/>
+            <polygon class="cls-10" points="211.21 387.82 178.32 540.6 120.32 492.12 197.79 376.13 211.21 387.82"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
