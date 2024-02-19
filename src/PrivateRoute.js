@@ -1,12 +1,24 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+// PrivateRoute.js
 
-const PrivateRoute = ({ children }) => {
-  const token = localStorage.getItem('token'); // Replace with your token check
-  const isAuthenticated = !!token; // Determine if the token indicates the user is authenticated
+import React, { useContext } from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import { AuthContext } from './AuthContext';
 
-  // Redirect to login if not authenticated, otherwise render children
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { authToken } = useContext(AuthContext);
+
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        authToken ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+        )
+      }
+    />
+  );
 };
 
 export default PrivateRoute;

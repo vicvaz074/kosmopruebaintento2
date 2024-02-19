@@ -27,6 +27,8 @@ import KosmoModalBot from './KosmoModalBot';
 import StoreComponent from './StoreComponent';
 import { Link } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
+import { AuthProvider } from './AuthContext';
+import NavigationComponent from './NavigationComponent';
 
 
 
@@ -178,8 +180,10 @@ useEffect(() => {
 
 
   return (
+  <AuthContext.Provider value={{ authToken, setAuthToken }}>
     <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
     <Router>
+    <NavigationComponent />
       <nav className={`navbar navbar-expand-lg fixed-top`}>
         <div className="container">
           <Link to="/#inicio" className="navbar-brand-link">
@@ -249,6 +253,7 @@ useEffect(() => {
       {showModal && <KosmoModalBot onClose={() => setShowModal(false)} />}
     </Router>
     </div>
+    </AuthContext.Provider>
   );
 }
 
