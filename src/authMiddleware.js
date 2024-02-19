@@ -1,24 +1,18 @@
 // authMiddleware.js
-
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = 'tu_secreto'; // Asegúrate de reemplazar 'tu_secreto' con tu clave secreta real
 
 const verifyToken = (req, res, next) => {
-  const bearerHeader = req.headers['authorization'];
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Extrae el token del encabezado
 
-  if (typeof bearerHeader !== 'undefined') {
-    const bearerToken = bearerHeader.split(' ')[1];
-    jwt.verify(bearerToken, SECRET_KEY, (err, decoded) => {
-      if (err) {
-        return res.status(403).json({ error: 'Token no válido' });
-      } else {
-        req.user = decoded;
-        next();
-      }
-    });
-  } else {
-    res.status(401).json({ error: 'Acceso denegado. No se proporcionó token.' });
-  }
+  if (!token) return res.status(401).json({ error: 'Acceso denegado. No se proporcionó token.' });
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ error: 'Token no válido' });
+
+    req.user = decoded; // Opcional: asigna la información decodificada a req.user
+    next(); // Continúa con la siguiente función en la cadena de middleware
+  });
 };
 
 module.exports = verifyToken;
