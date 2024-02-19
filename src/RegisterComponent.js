@@ -31,7 +31,7 @@ const RegisterComponent = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/registrarse', {
+      const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/registrarse', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ username, email, password }),
