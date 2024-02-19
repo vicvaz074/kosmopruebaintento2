@@ -77,98 +77,18 @@ const KosmoCustomizationComponent = () => {
 };
 
 
-
 function App() {
   const [isHovering, setIsHovering] = useState(false);
   const [navExpanded, setNavExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const closeNav = () => {
-    setNavExpanded(false);
-  };
-
+  const closeNav = () => setNavExpanded(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsAuthenticated(!!token);
-  }, []);
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    setIsAuthenticated(false);
-  };
-  
-  
-  
-const ChatButton = ({ setShowModal }) => {
-  const location = useLocation();
-  const chatButtonRef = useRef(null);
-  const isMobile = window.innerWidth <= 768;
-
-  const handleMouseMove = (event) => {
-    if (!isMobile && chatButtonRef.current) {
-      const { top, left, width, height } = chatButtonRef.current.getBoundingClientRect();
-      const centerX = left + width / 2;
-      const centerY = top + height / 2;
-      const deltaX = event.clientX - centerX;
-      const deltaY = event.clientY - centerY;
-
-      // Calcular el ángulo en radianes y convertirlo a grados
-      let angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-
-      // Ajustar el ángulo para la imagen invertida y mantenerlo en el semicírculo izquierdo
-      if (angle < 0) {
-        angle = (angle + 360) % 360; // Convertir ángulos negativos a positivos
-      }
-      if (angle > 0 && angle < 360) {
-        // El ratón está a la izquierda de la imagen
-        angle = angle - 180; // Esto invertirá el ángulo para que la imagen "mire" hacia la izquierda
-      } else {
-        // El ratón está a la derecha de la imagen
-        if (angle <= 90) {
-          angle = 90; // Límite superior para el movimiento a la izquierda
-        } else {
-          angle = -90; // Límite inferior para el movimiento a la derecha
-        }
-      }
-
-      // Establecer el estilo de transformación directamente en el botón
-      chatButtonRef.current.style.transform = `rotate(${angle}deg)`;
-    }
-  };
-
-    useEffect(() => {
-      if (!isMobile) {
-        // Agregar el controlador de eventos al mover el mouse en el documento solo si no es móvil
-        document.addEventListener('mousemove', handleMouseMove);
-      }
-  
-      return () => {
-        if (!isMobile) {
-          // Limpiar el evento al desmontar el componente solo si no es móvil
-          document.removeEventListener('mousemove', handleMouseMove);
-        }
-      };
-    // Añadir isMobile a la lista de dependencias del efecto para volver a aplicarlo si cambia
-    }, [isMobile]);
-
-    // Determina si el botón debe mostrarse basado en la ruta
-    const isVisible = location.pathname !== '/tryme';
-
-    return isVisible ? (
-      <button ref={chatButtonRef} className="chat-button-modal" onClick={() => setShowModal(true)}>
-        <img src={head} alt="Chat con Kosmo" style={{ transform: 'scaleX(-1)' }} />
-      </button>
-    ) : null;
-};
-
-
-useEffect(() => {
-  document.body.className = darkMode ? 'dark-mode' : '';
-}, [darkMode]);
+    document.body.className = darkMode ? 'dark-mode' : '';
+  }, [darkMode]);
 
   useEffect(() => {
     const updateContentMargin = () => {
@@ -185,103 +105,94 @@ useEffect(() => {
     return () => window.removeEventListener('resize', updateContentMargin);
   }, [navExpanded]);
 
-  const toggleNav = () => {
-    setNavExpanded(!navExpanded);
+  const toggleNav = () => setNavExpanded(!navExpanded);
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
   };
-
-
 
   return (
     <AuthProvider>
-    <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
-    <Router>
-      <nav className={`navbar navbar-expand-lg fixed-top`}>
-        <div className="container">
-          <Link to="/#inicio" className="navbar-brand-link">
-            <div
-              className="navbar-brand"
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
-              onTouchStart={() => setIsHovering(true)}
-              onTouchEnd={() => setIsHovering(false)}
-            >
-              {isHovering ? (
-                <span className="navbar-text-logo">Kosmo</span>
-              ) : (
-                <img src={logo} alt="Logo Kosmo" className="brand-logo" />
-              )}
-            </div>
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            onClick={toggleNav}
-            aria-controls="navbarNav"
-            aria-expanded={navExpanded}
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-        </div>
-        <div className={`collapse navbar-collapse ${navExpanded ? 'show' : ''}`} id="navbarNav">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item" onClick={closeNav}>
-              <NavLink className="nav-link" to="/#inicio">Inicio</NavLink>
-            </li>
-            <li className="nav-item" onClick={closeNav}>
-              <NavLink className="nav-link" to="/#nosotros">Nosotros</NavLink>
-            </li>
-            <li className="nav-item" onClick={closeNav}>
-              <NavLink className="nav-link" to="/#planes">Planes</NavLink>
-            </li>
-            <li className="nav-item" onClick={closeNav}>
-              <NavLink className="nav-link" to="/#contactanos">Contáctanos</NavLink>
-            </li>
-            {isAuthenticated ? (
-                <>
+      <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
+        <Router>
+          <nav className={`navbar navbar-expand-lg fixed-top ${darkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-light'}`}>
+            <div className="container">
+              <Link to="/" className="navbar-brand">
+                <div
+                  onMouseEnter={() => setIsHovering(true)}
+                  onMouseLeave={() => setIsHovering(false)}
+                  onTouchStart={() => setIsHovering(true)}
+                  onTouchEnd={() => setIsHovering(false)}>
+                  {isHovering ? (
+                    <span className="navbar-text-logo">Kosmo</span>
+                  ) : (
+                    <img src={logo} alt="Logo Kosmo" className="brand-logo" />
+                  )}
+                </div>
+              </Link>
+              <button
+                className="navbar-toggler"
+                type="button"
+                onClick={toggleNav}
+                aria-controls="navbarNav"
+                aria-expanded={navExpanded}
+                aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div className={`collapse navbar-collapse ${navExpanded ? 'show' : ''}`} id="navbarNav">
+                <ul className="navbar-nav ml-auto">
                   <li className="nav-item" onClick={closeNav}>
-                    <Link className="nav-link" to="/mi-sesion">Mi Sesión</Link>
+                    <NavLink className="nav-link" to="/#inicio">Inicio</NavLink>
                   </li>
                   <li className="nav-item" onClick={closeNav}>
-                    <button className="nav-link" onClick={logout}>Cerrar sesión</button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className="nav-item" onClick={closeNav}>
-                    <NavLink className="nav-link" to="/login">Login</NavLink>
+                    <NavLink className="nav-link" to="/#nosotros">Nosotros</NavLink>
                   </li>
                   <li className="nav-item" onClick={closeNav}>
-                    <NavLink className="nav-link" to="/registrarse">Registrarse</NavLink>
+                    <NavLink className="nav-link" to="/#planes">Planes</NavLink>
                   </li>
-                </>
-              )}
-
-            <li className="nav-item" onClick={closeNav}>
-              <div> {/* Ajusta el padding o el width según necesites */}
-                <button className="nav-link-button" onClick={toggleDarkMode}>
-                  Modo Oscuro
-                </button>
+                  <li className="nav-item" onClick={closeNav}>
+                    <NavLink className="nav-link" to="/#contactanos">Contáctanos</NavLink>
+                  </li>
+                  {!isAuthenticated ? (
+                    <>
+                      <li className="nav-item" onClick={closeNav}>
+                        <NavLink className="nav-link" to="/login">Login</NavLink>
+                      </li>
+                      <li className="nav-item" onClick={closeNav}>
+                        <NavLink className="nav-link" to="/registrarse">Registrarse</NavLink>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="nav-item" onClick={closeNav}>
+                        <NavLink className="nav-link" to="/store">Tienda</NavLink>
+                      </li>
+                      <li className="nav-item" onClick={logout}>
+                        <span className="nav-link" style={{ cursor: 'pointer' }}>Logout</span>
+                      </li>
+                    </>
+                  )}
+                </ul>
               </div>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<LoginComponent />} />
-        <Route path="/registrarse" element={<RegisterComponent />} />
-        <Route path="/tryme" element={<KosmoTryComponent />} />
-        <Route path="/store" element={<PrivateRoute><StoreComponent /></PrivateRoute>} />
-      </Routes>
-      <ChatButton setShowModal={setShowModal} />
-      {showModal && <KosmoModalBot onClose={() => setShowModal(false)} />}
-    </Router>
-    </div>
+            </div>
+          </nav>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/login" element={<LoginComponent />} />
+            <Route path="/registrarse" element={<RegisterComponent />} />
+            <Route path="/tryme" element={<KosmoTryComponent />} />
+            <Route path="/store" element={<PrivateRoute isAuthenticated={isAuthenticated}><StoreComponent /></PrivateRoute>} />
+          </Routes>
+          <button className="chat-button" onClick={() => setShowModal(true)}>
+            Chat
+          </button>
+          {showModal && <KosmoModalBot onClose={() => setShowModal(false)} />}
+        </Router>
+      </div>
     </AuthProvider>
   );
 }
-
 
 
 function MainPage() {
