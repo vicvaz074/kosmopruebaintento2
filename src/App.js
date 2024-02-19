@@ -83,11 +83,24 @@ function App() {
   const [navExpanded, setNavExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { darkMode, toggleDarkMode } = useDarkMode();
-  const { isAuthenticated, logout } = useAuth(); // Usa useAuth aquí
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const closeNav = () => {
     setNavExpanded(false);
-  };  
+  };
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    // Redirigir al usuario a la página de inicio o de login
+  };
+  
   
 const ChatButton = ({ setShowModal }) => {
   const location = useLocation();
@@ -175,93 +188,115 @@ useEffect(() => {
     setNavExpanded(!navExpanded);
   };
 
+
+
   return (
     <AuthProvider>
-      <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
-        <Router>
-          <nav className={`navbar navbar-expand-lg fixed-top`}>
-            <div className="container">
-              <Link to="/#inicio" className="navbar-brand-link">
-                <div
-                  className="navbar-brand"
-                  onMouseEnter={() => setIsHovering(true)}
-                  onMouseLeave={() => setIsHovering(false)}
-                  onTouchStart={() => setIsHovering(true)}
-                  onTouchEnd={() => setIsHovering(false)}
-                >
-                  {isHovering ? (
-                    <span className="navbar-text-logo">Kosmo</span>
-                  ) : (
-                    <img src={logo} alt="Logo Kosmo" className="brand-logo" />
-                  )}
-                </div>
-              </Link>
-              <button
-                className="navbar-toggler"
-                type="button"
-                onClick={toggleNav}
-                aria-controls="navbarNav"
-                aria-expanded={navExpanded}
-                aria-label="Toggle navigation"
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button>
+    <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
+    <Router>
+      <nav className={`navbar navbar-expand-lg fixed-top`}>
+        <div className="container">
+          <Link to="/#inicio" className="navbar-brand-link">
+            <div
+              className="navbar-brand"
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+              onTouchStart={() => setIsHovering(true)}
+              onTouchEnd={() => setIsHovering(false)}
+            >
+              {isHovering ? (
+                <span className="navbar-text-logo">Kosmo</span>
+              ) : (
+                <img src={logo} alt="Logo Kosmo" className="brand-logo" />
+              )}
             </div>
-            <div className={`collapse navbar-collapse ${navExpanded ? 'show' : ''}`} id="navbarNav">
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item" onClick={closeNav}>
-                  <NavLink className="nav-link" to="/#inicio">Inicio</NavLink>
-                </li>
-                <li className="nav-item" onClick={closeNav}>
-                  <NavLink className="nav-link" to="/#nosotros">Nosotros</NavLink>
-                </li>
-                <li className="nav-item" onClick={closeNav}>
-                  <NavLink className="nav-link" to="/#planes">Planes</NavLink>
-                </li>
-                <li className="nav-item" onClick={closeNav}>
-                  <NavLink className="nav-link" to="/#contactanos">Contáctanos</NavLink>
-                </li>
-                <li className="nav-item" onClick={closeNav}>
-                  <NavLink className="nav-link" to="/login">Login</NavLink>
-                </li>
-                <li className="nav-item" onClick={closeNav}>
-                  <NavLink className="nav-link" to="/registrarse">Registrarse</NavLink>
-                </li>
-                <li className="nav-item" onClick={closeNav}>
-                  <div> {/* Ajusta el padding o el width según necesites */}
-                    <button className="nav-link-button" onClick={toggleDarkMode}>
-                      Modo Oscuro
-                    </button>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </nav>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/login" element={<LoginComponent />} />
-            <Route path="/registrarse" element={<RegisterComponent />} />
-            <Route path="/tryme" element={<KosmoTryComponent />} />
-            <Route path="/store" element={<PrivateRoute><StoreComponent /></PrivateRoute>} />
-          </Routes>
-          <nav>
-            {/* Aquí condicionas la renderización de los enlaces en la barra de navegación */}
+          </Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            onClick={toggleNav}
+            aria-controls="navbarNav"
+            aria-expanded={navExpanded}
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div className={`collapse navbar-collapse ${navExpanded ? 'show' : ''}`} id="navbarNav">
+          <ul className="navbar-nav ml-auto">
+            <li className="nav-item" onClick={closeNav}>
+              <NavLink className="nav-link" to="/#inicio">Inicio</NavLink>
+            </li>
+            <li className="nav-item" onClick={closeNav}>
+              <NavLink className="nav-link" to="/#nosotros">Nosotros</NavLink>
+            </li>
+            <li className="nav-item" onClick={closeNav}>
+              <NavLink className="nav-link" to="/#planes">Planes</NavLink>
+            </li>
+            <li className="nav-item" onClick={closeNav}>
+              <NavLink className="nav-link" to="/#contactanos">Contáctanos</NavLink>
+            </li>
+            <li className="nav-item" onClick={closeNav}>
+              <NavLink className="nav-link" to="/login">Login</NavLink>
+            </li>
+            <li className="nav-item" onClick={closeNav}>
+              <NavLink className="nav-link" to="/registrarse">Registrarse</NavLink>
+            </li>
             {isAuthenticated ? (
-              <>
-                <Link to="/mi-sesion">Mi Sesión</Link>
-                <button onClick={logout}>Cerrar sesión</button>
-              </>
-            ) : (
-              <>
-                <Link to="/login">Login</Link>
-                <Link to="/registrarse">Registrarse</Link>
-              </>
-            )}
-          </nav>
-          <ChatButton setShowModal={setShowModal} />
-          {showModal && <KosmoModalBot onClose={() => setShowModal(false)} />}
-        </Router>
-      </div>
+                <>
+                  <li className="nav-item" onClick={closeNav}>
+                    <Link className="nav-link" to="/mi-sesion">Mi Sesión</Link>
+                  </li>
+                  <li className="nav-item" onClick={closeNav}>
+                    <button className="nav-link" onClick={logout}>Cerrar sesión</button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item" onClick={closeNav}>
+                    <NavLink className="nav-link" to="/login">Login</NavLink>
+                  </li>
+                  <li className="nav-item" onClick={closeNav}>
+                    <NavLink className="nav-link" to="/registrarse">Registrarse</NavLink>
+                  </li>
+                </>
+              )}
+
+            <li className="nav-item" onClick={closeNav}>
+              <div> {/* Ajusta el padding o el width según necesites */}
+                <button className="nav-link-button" onClick={toggleDarkMode}>
+                  Modo Oscuro
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/login" element={<LoginComponent />} />
+        <Route path="/registrarse" element={<RegisterComponent />} />
+        <Route path="/tryme" element={<KosmoTryComponent />} />
+        <Route path="/store" element={<PrivateRoute><StoreComponent /></PrivateRoute>} />
+      </Routes>
+      <nav>
+        {/* Aquí condicionas la renderización de los enlaces en la barra de navegación */}
+        {isAuthenticated ? (
+          <>
+            <Link to="/mi-sesion">Mi Sesión</Link>
+            <button onClick={logout}>Cerrar sesión</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/registrarse">Registrarse</Link>
+          </>
+        )}
+      </nav>
+      <ChatButton setShowModal={setShowModal} />
+      {showModal && <KosmoModalBot onClose={() => setShowModal(false)} />}
+    </Router>
+    </div>
     </AuthProvider>
   );
 }
