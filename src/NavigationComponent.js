@@ -1,10 +1,9 @@
-// NavigationComponent.js
 import React, { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext'; // Asume que AuthContext es el contexto de autenticación
 
 const NavigationComponent = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { authToken, setAuthToken } = useContext(AuthContext);
 
   const handleLogout = () => {
@@ -12,7 +11,7 @@ const NavigationComponent = () => {
     setAuthToken(null);
     localStorage.removeItem('authToken');
     // Redirecciona al usuario al inicio
-    history.push('/#inicio');
+    navigate('/#inicio');
   };
 
   return (
