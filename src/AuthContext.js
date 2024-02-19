@@ -1,9 +1,6 @@
-// AuthContext.js
 import React, { createContext, useContext, useState } from 'react';
 
-export const AuthContext = createContext();
-
-const AuthContext = createContext();
+const AuthContext = createContext(); // Declaración única de AuthContext
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -29,3 +26,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+export default AuthContext; // Exporta AuthContext aquí si realmente necesitas accederlo directamente fuera
