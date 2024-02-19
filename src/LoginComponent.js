@@ -3,26 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import './LoginComponent.css';
 import { DarkModeContext } from './DarkModeContext';
 import loginBasicBot from './assets/img/KOSMO_BOT_BASICO.svg';
-import loginUserIcone from './assets/img/LOGO_USER_ICONE.svg';
-import loginPasswordIcone from './assets/img/CANDADO.svg';
+import loginUserIcon from './assets/img/LOGO_USER_ICONE.svg';
+import loginPasswordIcon from './assets/img/CANDADO.svg';
 import eyeIcon from './assets/img/eye_icon.svg';
 import AlertComponent from './AlertComponent';
 import { useAuth } from './AuthContext';
-
 
 const LoginComponent = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login } = useAuth(); // Utiliza useAuth para acceder a la función login
   const { darkMode } = useContext(DarkModeContext);
-  const [usernameError, setUsernameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(''); // Reinicia el estado de error antes de intentar un nuevo inicio de sesión
 
     try {
       const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/login', {
@@ -35,16 +33,15 @@ const LoginComponent = () => {
 
       if (response.ok) {
         const data = await response.json();
-        login(data.token); // Utiliza la función login del contexto para actualizar el estado global
-        alert("¡Inicio de sesión exitoso!");
-        navigate('/store'); // Redirige al usuario a la ruta deseada
+        login(data.token); // Guarda el token en localStorage y actualiza el estado de autenticación
+        navigate('/store'); // Redirige al usuario a la página 'store'
       } else {
-        const error = await response.text();
-        throw new Error(error);
+        const errorData = await response.json();
+        setError(errorData.message || 'Error al iniciar sesión. Intenta de nuevo.'); // Establece el mensaje de error basado en la respuesta del servidor
       }
     } catch (error) {
       console.error(error);
-      setError('Error al iniciar sesión. Intenta de nuevo.'); // Maneja el estado de error para mostrar el mensaje en la UI
+      setError('Error al iniciar sesión. Por favor, verifica tu conexión y vuelve a intentarlo.');
     }
   };
 
@@ -58,7 +55,7 @@ const LoginComponent = () => {
             <h1>INICIA SESIÓN EN TU CUENTA</h1>
             <form onSubmit={handleSubmit} className="login-form">
               <div className="input-group">
-                <img src={loginUserIcone} alt="User Icon" className="input-icon" />
+                <img src={loginUserIcon} alt="User Icon" className="input-icon" />
                 <input
                   type="text"
                   value={username}
@@ -66,12 +63,10 @@ const LoginComponent = () => {
                   required
                   placeholder="Usuario"
                   className="input-field"
-                  style={{ borderBottom: '1px solid #000' }}
                 />
-                <AlertComponent message={usernameError} />
               </div>
               <div className="input-group">
-                <img src={loginPasswordIcone} alt="Password Icon" className="input-icon" />
+                <img src={loginPasswordIcon} alt="Password Icon" className="input-icon" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
@@ -83,16 +78,12 @@ const LoginComponent = () => {
                 <button onClick={toggleShowPassword} type="button" className="password-toggle">
                   <img src={eyeIcon} alt="Toggle Password" />
                 </button>
-                <AlertComponent message={passwordError} />
               </div>
-              <button type="submit" className='loginButton'>Iniciar Sesión</button>
+              <button type="submit" className="loginButton">Iniciar Sesión</button>
+              {error && <AlertComponent message={error} />}
               <p className="login-register-link">
                 ¿No trabajas con Kosmo? <span onClick={() => navigate('/registrarse')}>Regístrate aquí</span>
               </p>
-              {error && <AlertComponent message={error} />}
-              <div className="login-robot">
-                <img src={loginBasicBot} alt="Kosmo Bot" className="floating-robot" />
-              </div>
             </form>
           </div>
         </div>
