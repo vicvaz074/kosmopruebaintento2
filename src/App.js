@@ -83,6 +83,7 @@ function App() {
   const [navExpanded, setNavExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { darkMode, toggleDarkMode } = useDarkMode();
+  const navigate = useNavigate(); // Agrega esta línea
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const closeNav = () => {
