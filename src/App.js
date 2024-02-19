@@ -279,20 +279,6 @@ useEffect(() => {
         <Route path="/tryme" element={<KosmoTryComponent />} />
         <Route path="/store" element={<PrivateRoute><StoreComponent /></PrivateRoute>} />
       </Routes>
-      <nav>
-        {/* Aquí condicionas la renderización de los enlaces en la barra de navegación */}
-        {isAuthenticated ? (
-          <>
-            <Link to="/mi-sesion">Mi Sesión</Link>
-            <button onClick={logout}>Cerrar sesión</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">Login</Link>
-            <Link to="/registrarse">Registrarse</Link>
-          </>
-        )}
-      </nav>
       <ChatButton setShowModal={setShowModal} />
       {showModal && <KosmoModalBot onClose={() => setShowModal(false)} />}
     </Router>
