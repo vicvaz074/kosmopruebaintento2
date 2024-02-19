@@ -16,12 +16,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('token', token);
     setIsAuthenticated(true);
   };
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    setIsAuthenticated(false);
-    navigate('/#inicio'); // O simplemente navigate('/') para redirigir a la raíz
-  };
   
 
   return (
