@@ -14,7 +14,7 @@ const app = express();
 // Configuración de CORS para aceptar peticiones de tu frontend
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? "https://kosmoprueba-09bb3b275582.herokuapp.com/" // URL de tu frontend en producción
+    ? "https://kosmov2-c8cfe0aa7eb5.herokuapp.com/" // URL de tu frontend en producción
     : "http://localhost:3000", // URL de tu frontend en desarrollo
   optionsSuccessStatus: 200
 };
