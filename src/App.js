@@ -84,23 +84,22 @@ function App() {
   const [showModal, setShowModal] = useState(false);
 
   const { darkMode, toggleDarkMode } = useDarkMode();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
+
+  // El resto de tu componente...
+
+  // Asegúrate de utilizar el logout del contexto para cerrar sesión
+  // Esto asegura que el estado de autenticación se maneje de manera centralizada
+  const handleLogout = () => {
+    logout(); // Llama a logout del contexto, que ya maneja la actualización del estado y el local storage
+  };
 
   const closeNav = () => {
     setNavExpanded(false);
   };
 
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsAuthenticated(!!token);
-  }, []);
-  
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    setIsAuthenticated(false);
-  };
   
   
   
