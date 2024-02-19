@@ -1,17 +1,38 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-const AuthContext = createContext(); // Declaración única de AuthContext
+const AuthContext = createContext();
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const login = (token) => {
-    localStorage.setItem('token', token);
-    setIsAuthenticated(true);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, []);
+
+  const login = async (username, password) => {
+    try {
+      const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/login', { // Asegúrate de ajustar la URL según tu configuración
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await response.json();
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        setIsAuthenticated(true);
+        return true;
+      } else {
+        throw new Error(data.error || 'Inicio de sesión fallido');
+      }
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   };
 
   const logout = () => {
@@ -19,11 +40,35 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
+  // Método para registro (ajustar según necesidad)
+  const register = async (username, email, password) => {
+    try {
+      // Asume una ruta de API '/api/registrarse' para el registro
+      const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/registrarse', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+      const data = await response.json();
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        setIsAuthenticated(true);
+        return true;
+      } else {
+        throw new Error(data.error || 'Registro fallido');
+      }
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, register }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export default AuthContext; // Exporta AuthContext aquí si realmente necesitas accederlo directamente fuera

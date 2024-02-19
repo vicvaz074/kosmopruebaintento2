@@ -84,24 +84,12 @@ function App() {
   const [showModal, setShowModal] = useState(false);
 
   const { darkMode, toggleDarkMode } = useDarkMode();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
+
 
   const closeNav = () => {
     setNavExpanded(false);
   };
-
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsAuthenticated(!!token);
-  }, []);
-  
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    setIsAuthenticated(false);
-  };
-  
   
   
 const ChatButton = ({ setShowModal }) => {
