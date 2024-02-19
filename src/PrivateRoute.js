@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from './AuthContext'; // Asegúrate de que la ruta sea correcta
+import { useAuth, AuthProvider } from './AuthContext'; // Ajusta la ruta según sea necesario
+
 
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated } = useAuth(); // Utiliza useAuth para obtener el estado de autenticación

@@ -9,6 +9,7 @@ import eyeIcon from './assets/img/eye_icon.svg';
 import AlertComponent from './AlertComponent';
 import { useAuth } from './AuthContext';
 
+
 const LoginComponent = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
