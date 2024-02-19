@@ -82,7 +82,7 @@ function App() {
   const [isHovering, setIsHovering] = useState(false);
   const [navExpanded, setNavExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
+
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -99,7 +99,6 @@ function App() {
   const logout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
-    navigate('/#inicio'); // O simplemente navigate('/') para redirigir a la raíz
   };
   
   
