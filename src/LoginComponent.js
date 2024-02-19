@@ -50,10 +50,12 @@ const LoginComponent = () => {
     const token = localStorage.getItem('token');
     try {
       const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/store', { // Reemplaza con tu ruta protegida
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
+      method: 'GET', // Ajusta según sea necesario (GET, POST, PUT, etc.)
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        // Incluye otros encabezados según sea necesario
+      },
+    });
 
       if (response.ok) {
         const data = await response.json();
