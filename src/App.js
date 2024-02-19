@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, createContext, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDarkMode } from './DarkModeContext';
 import { BrowserRouter as Router, Routes, Route, NavLink, useLocation } from 'react-router-dom';
@@ -28,8 +28,6 @@ import StoreComponent from './StoreComponent';
 import { Link } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import { AuthProvider } from './AuthContext';
-import NavigationComponent from './NavigationComponent';
-
 
 
 const KosmoCustomizationComponent = () => {
@@ -88,6 +86,18 @@ function App() {
   const { darkMode, toggleDarkMode } = useDarkMode();
   const closeNav = () => {
     setNavExpanded(false);
+  };
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    // Redirigir al usuario a la página de inicio o de login
   };
   
   
@@ -180,10 +190,9 @@ useEffect(() => {
 
 
   return (
-  <AuthProvider>
+    <AuthProvider>
     <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
     <Router>
-    <NavigationComponent />
       <nav className={`navbar navbar-expand-lg fixed-top`}>
         <div className="container">
           <Link to="/#inicio" className="navbar-brand-link">
@@ -249,11 +258,25 @@ useEffect(() => {
         <Route path="/tryme" element={<KosmoTryComponent />} />
         <Route path="/store" element={<PrivateRoute><StoreComponent /></PrivateRoute>} />
       </Routes>
+      <nav>
+        {/* Aquí condicionas la renderización de los enlaces en la barra de navegación */}
+        {isAuthenticated ? (
+          <>
+            <Link to="/mi-sesion">Mi Sesión</Link>
+            <button onClick={logout}>Cerrar sesión</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/registrarse">Registrarse</Link>
+          </>
+        )}
+      </nav>
       <ChatButton setShowModal={setShowModal} />
       {showModal && <KosmoModalBot onClose={() => setShowModal(false)} />}
     </Router>
     </div>
-  </AuthProvider>
+    </AuthProvider>
   );
 }
 

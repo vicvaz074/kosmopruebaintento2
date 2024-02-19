@@ -1,24 +1,12 @@
-// PrivateRoute.js
-
 import React, { useContext } from 'react';
-import { Route, Navigate } from 'react-router-dom';
-import { AuthContext } from './AuthContext';
+import { Navigate } from 'react-router-dom';
+import { AuthContext } from './AuthContext'; // Asegúrate de importar correctamente el contexto
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { authToken } = useContext(AuthContext);
+const PrivateRoute = ({ children }) => {
+  const { isAuthenticated } = useContext(AuthContext); // Usa el contexto para determinar si el usuario está autenticado
 
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        authToken ? (
-          <Component {...props} />
-        ) : (
-          <Navigate to={{ pathname: "/login", state: { from: props.location } }} />
-        )
-      }
-    />
-  );
+  // Redirect to login if not authenticated, otherwise render children
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoute;

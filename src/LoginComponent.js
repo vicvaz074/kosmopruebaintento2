@@ -7,12 +7,14 @@ import loginUserIcone from './assets/img/LOGO_USER_ICONE.svg';
 import loginPasswordIcone from './assets/img/CANDADO.svg';
 import eyeIcon from './assets/img/eye_icon.svg';
 import AlertComponent from './AlertComponent';
+import { useAuth } from './AuthContext';
 
 const LoginComponent = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
   const { darkMode } = useContext(DarkModeContext);
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -31,17 +33,17 @@ const LoginComponent = () => {
       });
 
       if (response.ok) {
-        alert("¡Inicio de sesión exitoso!");
         const data = await response.json();
-        localStorage.setItem('token', data.token);
-        navigate('/store');
+        login(data.token); // Utiliza la función login del contexto para actualizar el estado global
+        alert("¡Inicio de sesión exitoso!");
+        navigate('/store'); // Redirige al usuario a la ruta deseada
       } else {
         const error = await response.text();
         throw new Error(error);
       }
     } catch (error) {
       console.error(error);
-      setError('Error al iniciar sesión. Intenta de nuevo.');
+      setError('Error al iniciar sesión. Intenta de nuevo.'); // Maneja el estado de error para mostrar el mensaje en la UI
     }
   };
 
