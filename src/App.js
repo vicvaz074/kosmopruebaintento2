@@ -83,7 +83,6 @@ function App() {
   const [navExpanded, setNavExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { darkMode, toggleDarkMode } = useDarkMode();
-  const navigate = useNavigate(); // Agrega esta línea
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const closeNav = () => {
@@ -96,12 +95,12 @@ function App() {
     setIsAuthenticated(!!token);
   }, []);
 
-const logout = () => {
-  localStorage.removeItem('token');
-  setIsAuthenticated(false);
-  navigate('/#inicio'); // O simplemente navigate('/') para redirigir a la raíz
-};
-
+  const logout = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    navigate('/#inicio'); // O simplemente navigate('/') para redirigir a la raíz
+  };
+  
   
   
 const ChatButton = ({ setShowModal }) => {
