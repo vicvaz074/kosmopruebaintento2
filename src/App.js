@@ -95,11 +95,6 @@ function App() {
     setIsAuthenticated(!!token);
   }, []);
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    setIsAuthenticated(false);
-    // Redirigir al usuario a la página de inicio o de login
-  };
   
   
 const ChatButton = ({ setShowModal }) => {
@@ -277,7 +272,7 @@ useEffect(() => {
       </div>
     </AuthProvider>
   );
-  
+}
 
 
 
