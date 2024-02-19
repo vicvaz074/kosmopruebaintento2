@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { DarkModeProvider } from './DarkModeContext';
-import { AuthProvider } from './path/to/AuthContext'; // Asegúrate de ajustar la ruta a tu AuthContext
+import { AuthProvider } from './AuthContext'; // Asegúrate de ajustar la ruta a tu AuthContext
 
 const container = document.getElementById('root');
 const root = createRoot(container);
