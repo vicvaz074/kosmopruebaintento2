@@ -83,23 +83,12 @@ function App() {
   const [navExpanded, setNavExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { darkMode, toggleDarkMode } = useDarkMode();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated, logout] = useState(false);
 
   const closeNav = () => {
     setNavExpanded(false);
   };
 
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsAuthenticated(!!token);
-  }, []);
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    setIsAuthenticated(false);
-    // Redirigir al usuario a la página de inicio o de login
-  };
   
   
 const ChatButton = ({ setShowModal }) => {

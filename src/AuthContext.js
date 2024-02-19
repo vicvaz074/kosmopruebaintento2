@@ -1,4 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const navigate = useNavigate();
 
 const AuthContext = createContext(); // Declaración única de AuthContext
 
@@ -17,7 +20,9 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
+    navigate('/#inicio'); // O simplemente navigate('/') para redirigir a la raíz
   };
+  
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
