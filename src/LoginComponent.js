@@ -14,16 +14,16 @@ const LoginComponent = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth(); // Utiliza useAuth para acceder a la función login
+  const { login } = useAuth();
   const { darkMode } = useContext(DarkModeContext);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Reinicia el estado de error antes de intentar un nuevo inicio de sesión
+    setError('');
 
     try {
-      const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/login', {
+      const response = await fetch('https://tu-backend.com/login', { // Reemplaza con tu endpoint de login
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,14 +34,35 @@ const LoginComponent = () => {
       if (response.ok) {
         const data = await response.json();
         login(data.token); // Guarda el token en localStorage y actualiza el estado de autenticación
+        fetchProtectedData(); // Realiza una solicitud a una ruta protegida después del inicio de sesión
         navigate('/store'); // Redirige al usuario a la página 'store'
       } else {
         const errorData = await response.json();
-        setError(errorData.message || 'Error al iniciar sesión. Intenta de nuevo.'); // Establece el mensaje de error basado en la respuesta del servidor
+        setError(errorData.message || 'Error al iniciar sesión. Intenta de nuevo.');
       }
     } catch (error) {
       console.error(error);
       setError('Error al iniciar sesión. Por favor, verifica tu conexión y vuelve a intentarlo.');
+    }
+  };
+
+  const fetchProtectedData = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch('https://tu-backend.com/ruta-protegida', { // Reemplaza con tu ruta protegida
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data); // Manejo de la respuesta
+      } else {
+        throw new Error('No se pudo acceder a los datos protegidos');
+      }
+    } catch (error) {
+      console.error('Error al acceder a los datos protegidos:', error);
     }
   };
 

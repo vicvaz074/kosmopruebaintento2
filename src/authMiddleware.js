@@ -1,22 +1,24 @@
+// authMiddleware.js
+
 const jwt = require('jsonwebtoken');
+const SECRET_KEY = 'tu_secreto'; // Asegúrate de reemplazar 'tu_secreto' con tu clave secreta real
 
 const verifyToken = (req, res, next) => {
-  const token = req.headers['authorization'];
-  if (!token) {
-    // Enviar un estado de error y un mensaje indicando que falta el token.
-    // Esto permite que el lado del cliente maneje la situación, posiblemente redirigiendo al usuario.
-    return res.status(401).send({ error: 'Acceso denegado. No se proporcionó token.' });
-  }
-  
-  try {
-    const decoded = jwt.verify(token, 'tu_secreto');
-    req.user = decoded;
-  } catch (error) {
-    // Enviar un estado de error y un mensaje indicando que el token no es válido.
-    return res.status(401).send({ error: 'Token no válido' });
-  }
+  const bearerHeader = req.headers['authorization'];
 
-  return next();
+  if (typeof bearerHeader !== 'undefined') {
+    const bearerToken = bearerHeader.split(' ')[1];
+    jwt.verify(bearerToken, SECRET_KEY, (err, decoded) => {
+      if (err) {
+        return res.status(403).json({ error: 'Token no válido' });
+      } else {
+        req.user = decoded;
+        next();
+      }
+    });
+  } else {
+    res.status(401).json({ error: 'Acceso denegado. No se proporcionó token.' });
+  }
 };
 
 module.exports = verifyToken;
