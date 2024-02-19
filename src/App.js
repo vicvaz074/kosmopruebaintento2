@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, createContext, useState, useContext } from 'react';
+import React, { useState, useEffect, useRef, createContext, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDarkMode } from './DarkModeContext';
 import { BrowserRouter as Router, Routes, Route, NavLink, useLocation } from 'react-router-dom';
@@ -30,23 +30,7 @@ import PrivateRoute from './PrivateRoute';
 import { AuthProvider } from './AuthContext';
 import NavigationComponent from './NavigationComponent';
 
-const AuthContext = createContext();
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
-
-export const AuthProvider = ({ children }) => {
-  const [authToken, setAuthToken] = useState(null);
-
-  // El valor que estará disponible globalmente
-  const value = {
-    authToken,
-    setAuthToken,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
 
 const KosmoCustomizationComponent = () => {
   const [outfitIndex, setOutfitIndex] = useState(0);
