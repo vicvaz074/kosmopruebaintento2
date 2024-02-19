@@ -23,7 +23,7 @@ const LoginComponent = () => {
     setError('');
 
     try {
-      const response = await fetch('https://tu-backend.com/login', { // Reemplaza con tu endpoint de login
+      const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/login', { // Reemplaza con tu endpoint de login
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ const LoginComponent = () => {
   const fetchProtectedData = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch('https://tu-backend.com/ruta-protegida', { // Reemplaza con tu ruta protegida
+      const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/store', { // Reemplaza con tu ruta protegida
         headers: {
           'Authorization': `Bearer ${token}`,
         },
