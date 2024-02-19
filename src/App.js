@@ -87,15 +87,7 @@ function App() {
 
   const closeNav = () => {
     setNavExpanded(false);
-  };
-
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsAuthenticated(!!token);
-  }, []);
-
-  
+  };  
   
 const ChatButton = ({ setShowModal }) => {
   const location = useLocation();
