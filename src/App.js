@@ -82,6 +82,7 @@ function App() {
   const [isHovering, setIsHovering] = useState(false);
   const [navExpanded, setNavExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
