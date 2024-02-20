@@ -19,7 +19,7 @@ const PrivateRoute = ({ children }) => {
       }
 
       try {
-        const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/store', {
+        const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com', {
           method: 'GET', // O cualquier método que estés utilizando
           headers: {
             'Content-Type': 'application/json',
