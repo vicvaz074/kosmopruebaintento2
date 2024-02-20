@@ -19,13 +19,13 @@ const PrivateRoute = ({ children }) => {
       }
 
       try {
-        const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com', {
-          method: 'GET', // O cualquier método que estés utilizando
+        const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/verify-token', {
+          method: 'GET', // Método GET para verificar el token
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('token') // Asegúrate de enviar el token
+            'Authorization': 'Bearer ' + token // Asegúrate de enviar el token
           }
-        })
+        });
         if (response.ok) {
           console.log('Token verificado: Usuario autenticado.');
           setStatus({ isLoading: false, isAuthenticated: true });
@@ -40,7 +40,7 @@ const PrivateRoute = ({ children }) => {
     };
 
     verifyToken();
-  }, [token]);
+  }, [token]); // Dependencia: token para reaccionar a cambios
 
   if (status.isLoading) {
     console.log('Cargando: Verificando autenticación...');
@@ -53,7 +53,7 @@ const PrivateRoute = ({ children }) => {
   }
 
   console.log('Acceso concedido a la ruta protegida.');
-  return children;
+  return children; // Renderiza el componente hijo si el usuario está autenticado
 };
 
 export default PrivateRoute;
