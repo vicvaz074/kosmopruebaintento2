@@ -2,40 +2,50 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const token = localStorage.getItem('token');
-  const [isAuthenticated, setIsAuthenticated] = React.useState(null);
 
   React.useEffect(() => {
-    if (token) {
-      fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/store', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(response => {
-        // Asumiendo que tu servidor responde con un código de estado para indicar validez
+    const verifyToken = async () => {
+      if (!token) {
+        setIsAuthenticated(false);
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/store', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
         if (response.ok) {
           setIsAuthenticated(true);
         } else {
           setIsAuthenticated(false);
         }
-      })
-      .catch(() => {
+      } catch (error) {
+        console.error('Error verifying token:', error);
         setIsAuthenticated(false);
-      });
-    } else {
-      setIsAuthenticated(false);
-    }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    verifyToken();
   }, [token]);
 
-  if (isAuthenticated === null) {
-    // Renderizar algo mientras se verifica la autenticación, como un spinner de carga
+  if (isLoading) {
+    // Renderiza un componente de carga mientras se verifica el token
     return <div>Loading...</div>;
   }
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  // Redirecciona al usuario al login si no está autenticado
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoute;
