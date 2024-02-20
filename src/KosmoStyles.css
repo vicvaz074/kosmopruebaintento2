@@ -1,0 +1,212 @@
+
+.chat-container {
+    width: 80%;
+    max-width: 600px;
+    margin: 80px auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.chat-header {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background-color: #262EC9; /* Color azul original */
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Añade esto a tu CSS */
+.chat-header:hover {
+  background-color: #1B1464; /* Color azul más oscuro al pasar el cursor */
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+
+.chat-input {
+    display: flex; /* Esto alinea horizontalmente el input y el botón */
+    justify-content: space-between; /* Esto separa el input del botón */
+    padding: 10px; /* Ajusta el padding según necesites */
+    width: 100%; /* O un ancho específico, según el diseño de tu chat */
+  }
+  
+  .chat-input input {
+    width: calc(100% - 50px); /* Ajusta 50px o el ancho de tu botón */
+    padding: 8px; /* Ajusta según la altura deseada del input */
+    margin-right: 10px; /* Espacio entre el input y el botón */
+    border: 1px solid #ccc; /* Ajusta el estilo del borde como prefieras */
+    border-radius: 4px; /* Bordes redondeados para el input */
+  }
+  
+
+.chat-area, .form-container {
+    padding: 20px;
+}
+
+#userInput, button, .form-group input, .form-group button {
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0;
+}
+
+.send-message-button {
+    padding: 8px 10px; /* Ajusta el padding para reducir el tamaño del botón si es necesario */
+    margin: 0; /* Ajusta el margen según sea necesario */
+    border: none; /* Remueve el borde si prefieres un diseño sin bordes */
+    background-color: #262EC9; /* O cualquier color que coincida con tu diseño */
+    border-radius: 4px; /* Bordes redondeados para el botón */
+
+  }
+  
+
+button:hover {
+    background-color: #1B1464;
+}
+
+.schedule-btn, .form-group .send-message-button {
+    background-color: #262EC9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button{
+    background-color: #262EC9;
+    color: white;
+}
+
+.schedule-btn:hover, .form-group button:hover {
+    background-color: #1B1464;
+}
+
+
+@media screen and (max-width: 768px) {
+    .chat-container, .modal-content {
+        width: 95%;
+    }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea los elementos al inicio (izquierda) */
+  margin-bottom: 20px; /* Espacio entre cada grupo de formulario */
+}
+
+.form-group label {
+  margin-bottom: 5px; /* Espacio entre la etiqueta y el campo de entrada */
+}
+
+.form-group input,
+.form-group .submit-button {
+  width: 100%; /* Hace que los inputs y el botón ocupen todo el ancho disponible del contenedor .form-group */
+  padding: 7px; /* Agrega algo de padding para mejor estética */
+  border-radius: 7px; /* Opcional: bordes redondeados para los inputs y el botón */
+  border: 1px solid #ccc; /* Opcional: borde para los inputs */
+}
+
+.submit-button {
+  background-color: #262EC9; /* Color de fondo del botón */
+  color: white; /* Color del texto del botón */
+  cursor: pointer; /* Cambia el cursor a un puntero para indicar que es clickeable */
+}
+
+/* Opcional: Estilos para hover en el botón */
+.submit-button:hover {
+  background-color: #1B1464;
+}
+
+/* Estilos base para todas las burbujas de chat */
+.chat-message {
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 20px;
+    max-width: 80%;
+  }
+  
+
+  
+/* Estilos para mensajes del usuario */
+.user-message {
+    background-color: #262EC9; /* Color oscuro para el usuario */
+    color: white;
+    font-family: 'IBM Plex Mono', monospace; /* Fuente IBM Plex Mono */
+    margin-left: auto; /* Alinea los mensajes del usuario a la derecha */
+    text-align: auto;
+    margin-top: 30px; /* Espacio debajo de cada mensaje del usuario */
+    border-bottom-right-radius: 0; /* Estilo específico para burbuja */
+    word-wrap: break-word; /* Asegura que las palabras largas se rompan y pasen a la siguiente línea */
+  }
+
+  .user-message:hover {
+    background-color: #1B1464; /* Color azul más oscuro al pasar el cursor */
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Estilos para mensajes del bot */
+  .bot-message {
+    background-color: #bfbebe; /* Color claro para el bot, ajustado para mejor contraste */
+    color: #000000;
+    font-family: 'IBM Plex Mono', monospace; /* Fuente IBM Plex Mono */
+    margin-right: auto; /* Alinea los mensajes del bot a la izquierda */
+    margin-top: 30px; /* Espacio debajo de cada mensaje del bot */
+    border-bottom-left-radius: 0; /* Estilo específico para burbuja */
+    word-wrap: break-word; /* Asegura que las palabras largas se rompan y pasen a la siguiente línea */
+  }
+
+  .appointment-button{
+    background-color: #262EC9;
+    color: white; /* Color azul */
+    font-family: 'IBM Plex Mono', monospace; /* Fuente IBM Plex Mono */
+    margin-top: 1rem; /* Espacio por encima de la descripción */
+    margin-left: 0.7rem;
+    font-size: 1rem; /* Tamaño de la descripción */
+    text-align: center;
+    width: 97%; /* Ancho del botón */
+  }
+  
+
+.typing-indicator {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+  margin-top: 2rem;
+}
+
+.typing-dot {
+  width: 8px;
+  height: 8px;
+  margin: 0 4px;
+  background-color: #262EC9; /* Color de los puntos */
+  border-radius: 50%;
+  animation: typing 1.4s infinite both;
+}
+
+.typing-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 164.57 111.16">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1b1464;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+
+      .cls-3 {
+        fill: url(#Nueva_muestra_de_motivo_2);
+      }
+    </style>
+    <pattern id="Nueva_muestra_de_motivo_2" data-name="Nueva muestra de motivo 2" x="0" y="0" width="131" height="131" patternTransform="translate(-661.01 -1086.89)" patternUnits="userSpaceOnUse" viewBox="0 0 131 131">
+      <g>
+        <rect class="cls-2" width="131" height="131"/>
+        <rect class="cls-1" width="131" height="131"/>
+      </g>
+    </pattern>
+  </defs>
+  <g id="Capa_1-2" data-name="Capa 1">
+    <path class="cls-3" d="m0,15.37l20.87,79.16,4.38,16.63,116.68-5.24L164.57,0,0,15.37Zm57.08,63.13c-5.44,0-8.75-3.49-8.75-9.12s3.31-9.14,8.75-9.14,8.75,3.49,8.75,9.14-3.31,9.12-8.75,9.12Zm66.97-.11c-5.45,0-8.75-3.48-8.75-9.12s3.3-9.12,8.75-9.12,8.75,3.48,8.75,9.12-3.33,9.12-8.75,9.12Z"/>
+  </g>
+</svg>
