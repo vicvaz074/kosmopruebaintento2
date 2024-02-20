@@ -15,7 +15,9 @@ const verifyToken = (req, res, next) => {
   } catch (error) {
     // Enviar un estado de error y un mensaje indicando que el token no es válido.
     // Para las APIs, es mejor enviar un estado HTTP en lugar de redirigir.
-    return res.status(401).send('Token no válido');
+    // En el catch del middleware, donde el token no es válido
+    return res.status(401).json({ error: "Token no válido", isAuthenticated: false });
+
   }
 
   return next();

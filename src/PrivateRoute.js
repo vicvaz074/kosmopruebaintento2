@@ -1,50 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(null); // null indica estado de "cargando"
   const token = localStorage.getItem('token');
 
-  React.useEffect(() => {
+  useEffect(() => {
     const verifyToken = async () => {
-      if (!token) {
-        setIsAuthenticated(false);
-        setIsLoading(false);
-        return;
-      }
+      console.log('Verificando token...');
+      if (token) {
+        try {
+          const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/store', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          });
 
-      try {
-        const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/store', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (response.ok) {
-          setIsAuthenticated(true);
-        } else {
+          if (response.ok) {
+            console.log('Token verificado: Usuario autenticado.');
+            setIsAuthenticated(true);
+          } else {
+            console.log('Token verificado: Usuario NO autenticado.');
+            setIsAuthenticated(false);
+          }
+        } catch (error) {
+          console.error('Error al verificar el token:', error);
           setIsAuthenticated(false);
         }
-      } catch (error) {
-        console.error('Error verifying token:', error);
+      } else {
+        console.log('No se encontró token: Usuario NO autenticado.');
         setIsAuthenticated(false);
-      } finally {
-        setIsLoading(false);
       }
     };
 
     verifyToken();
-  }, [token]);
+  }, [token]); // Dependencia al token para re-ejecutar si cambia
 
-  if (isLoading) {
-    // Renderiza un componente de carga mientras se verifica el token
-    return <div>Loading...</div>;
+  // Manejo de estado de carga
+  if (isAuthenticated === null) {
+    return <div>Loading...</div>; // Mostrar algo más representativo o un spinner de carga
   }
 
-  // Redirecciona al usuario al login si no está autenticado
+  // Redireccionamiento basado en el estado de autenticación
   return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
