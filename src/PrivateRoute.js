@@ -9,8 +9,6 @@ const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    console.log('Inicio de la verificación del token...');
-
     const verifyToken = async () => {
       if (!token) {
         console.log('No se encontró token: Usuario NO autenticado.');
@@ -20,12 +18,12 @@ const PrivateRoute = ({ children }) => {
 
       try {
         const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/verify-token', {
-          method: 'GET', // Método GET para verificar el token
+          method: 'GET',
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token // Asegúrate de enviar el token
+            'Authorization': 'Bearer ' + token
           }
         });
+
         if (response.ok) {
           console.log('Token verificado: Usuario autenticado.');
           setStatus({ isLoading: false, isAuthenticated: true });
@@ -40,20 +38,18 @@ const PrivateRoute = ({ children }) => {
     };
 
     verifyToken();
-  }, [token]); // Dependencia: token para reaccionar a cambios
+  }, [token]); // Dependencia al token para re-ejecutar la verificación si cambia
 
   if (status.isLoading) {
-    console.log('Cargando: Verificando autenticación...');
-    return <div>Loading...</div>; // Considera usar un spinner o componente de carga aquí
+    return <div>Loading...</div>;
   }
 
   if (!status.isAuthenticated) {
-    console.log('Redirigiendo a login: No autenticado.');
     return <Navigate to="/login" replace />;
   }
 
-  console.log('Acceso concedido a la ruta protegida.');
-  return children; // Renderiza el componente hijo si el usuario está autenticado
+  return children;
 };
 
 export default PrivateRoute;
+
