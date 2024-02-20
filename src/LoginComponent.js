@@ -34,7 +34,8 @@ const LoginComponent = () => {
         alert("¡Inicio de sesión exitoso!");
         const data = await response.json();
         localStorage.setItem('token', data.token);
-        navigate('/store');
+        console.log('Token guardado:', localStorage.getItem('token')); // Para depurar
+        navigate('/store');      
       } else {
         const error = await response.text();
         throw new Error(error);
