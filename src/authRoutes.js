@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { register, login } = require('./AuthController'); // Verifica la ruta
-const authMiddleware = require('./path_to_your_authMiddleware'); // Asegúrate de importar correctamente tu middleware de autenticación
+const authMiddleware = require('./authMiddleware'); // Asegúrate de importar correctamente tu middleware de autenticación
 
 // Endpoint para registro
 router.post('/registrarse', register);
