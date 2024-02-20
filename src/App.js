@@ -243,7 +243,6 @@ useEffect(() => {
         <Route path="/login" element={<LoginComponent />} />
         <Route path="/registrarse" element={<RegisterComponent />} />
         <Route path="/tryme" element={<KosmoTryComponent />} />
-        <Route path="/store" element={<PrivateRoute><StoreComponent /></PrivateRoute>} />
       </Routes>
       <ChatButton setShowModal={setShowModal} />
       {showModal && <KosmoModalBot onClose={() => setShowModal(false)} />}
