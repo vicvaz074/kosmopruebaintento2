@@ -20,13 +20,12 @@ const PrivateRoute = ({ children }) => {
 
       try {
         const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/store', {
-          method: 'GET',
+          method: 'GET', // O cualquier método que estés utilizando
           headers: {
-            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
-          },
-        });
-
+            'Authorization': 'Bearer ' + localStorage.getItem('token') // Asegúrate de enviar el token
+          }
+        })
         if (response.ok) {
           console.log('Token verificado: Usuario autenticado.');
           setStatus({ isLoading: false, isAuthenticated: true });
