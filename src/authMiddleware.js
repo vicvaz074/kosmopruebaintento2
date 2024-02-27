@@ -2,17 +2,24 @@
 const jwt = require('jsonwebtoken');
 
 const verifyToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]; // Extrae el token del encabezado
+  const token = req.headers["x-access-token"];
 
-  if (!token) return res.status(401).json({ error: 'Acceso denegado. No se proporcionó token.' });
+  if (!token) {
+    console.log("Token no proporcionado en la solicitud.");
+    return res.status(403).send({ error: "Acceso denegado. No se proporcionó token." });
+  }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) return res.status(403).json({ error: 'Token no válido' });
-
-    req.user = decoded; // Opcional: asigna la información decodificada a req.user
-    next(); // Continúa con la siguiente función en la cadena de middleware
-  });
+  try {
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+    req.user = decoded;
+    console.log("Token verificado con éxito:", decoded);
+    next();
+  } catch (error) {
+    console.log("Error al verificar el token:", error.message);
+    return res.status(401).send({ error: "Token inválido." });
+  }
 };
 
 module.exports = verifyToken;
+
+
