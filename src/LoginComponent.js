@@ -7,14 +7,12 @@ import loginUserIcon from './assets/img/LOGO_USER_ICONE.svg';
 import loginPasswordIcon from './assets/img/CANDADO.svg';
 import eyeIcon from './assets/img/eye_icon.svg';
 import AlertComponent from './AlertComponent';
-import { useAuth } from './AuthContext';
 
 const LoginComponent = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
   const { darkMode } = useContext(DarkModeContext);
   const [error, setError] = useState('');
 

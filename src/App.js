@@ -27,7 +27,7 @@ import KosmoModalBot from './KosmoModalBot';
 import StoreComponent from './StoreComponent';
 import { Link } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
-import {AuthProvider } from './AuthContext'; // Ajusta la ruta según sea necesario
+import { AuthProvider } from './AuthContext'; // Ajusta la ruta según sea necesario
 
 const KosmoCustomizationComponent = () => {
   const [outfitIndex, setOutfitIndex] = useState(0);
