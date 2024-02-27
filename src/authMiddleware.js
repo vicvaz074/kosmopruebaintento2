@@ -1,24 +1,17 @@
+// authMiddleware.js
 const jwt = require('jsonwebtoken');
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+  const token = authHeader && authHeader.split(' ')[1]; // Extrae el token del encabezado
 
-  if (token == null) {
-    // En lugar de intentar redirigir, envía un estado 401 no autorizado.
-    // Esto permite que el cliente decida qué hacer cuando el token no está presente.
-    return res.status(401).json({ message: "Acceso denegado. No hay token proporcionado." });
-  }
+  if (!token) return res.status(401).json({ error: 'Acceso denegado. No se proporcionó token.' });
 
-  jwt.verify(token, 'tu_secreto', (err, user) => {
-    if (err) {
-      // Enviar un estado 403 prohibido si el token es inválido.
-      return res.status(403).json({ message: "Token no válido o expirado." });
-    }
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ error: 'Token no válido' });
 
-    // Si el token es verificado correctamente, adjuntar el usuario al objeto de solicitud.
-    req.user = user;
-    next(); // Pasar al siguiente middleware o ruta.
+    req.user = decoded; // Opcional: asigna la información decodificada a req.user
+    next(); // Continúa con la siguiente función en la cadena de middleware
   });
 };
 

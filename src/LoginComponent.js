@@ -3,26 +3,27 @@ import { useNavigate } from 'react-router-dom';
 import './LoginComponent.css';
 import { DarkModeContext } from './DarkModeContext';
 import loginBasicBot from './assets/img/KOSMO_BOT_BASICO.svg';
-import loginUserIcone from './assets/img/LOGO_USER_ICONE.svg';
-import loginPasswordIcone from './assets/img/CANDADO.svg';
+import loginUserIcon from './assets/img/LOGO_USER_ICONE.svg';
+import loginPasswordIcon from './assets/img/CANDADO.svg';
 import eyeIcon from './assets/img/eye_icon.svg';
 import AlertComponent from './AlertComponent';
+import { useAuth } from './AuthContext';
 
 const LoginComponent = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
   const { darkMode } = useContext(DarkModeContext);
-  const [usernameError, setUsernameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
 
     try {
-      const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/login', {
+      const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/login', { // Reemplaza con tu endpoint de login
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,18 +32,39 @@ const LoginComponent = () => {
       });
 
       if (response.ok) {
-        alert("¡Inicio de sesión exitoso!");
         const data = await response.json();
-        localStorage.setItem('token', data.token);
-        console.log('Token guardado:', localStorage.getItem('token')); // Para depurar
-        navigate('/store');      
+        login(data.token); // Guarda el token en localStorage y actualiza el estado de autenticación
+        fetchProtectedData(); // Realiza una solicitud a una ruta protegida después del inicio de sesión
+        navigate('/store'); // Redirige al usuario a la página 'store'
       } else {
-        const error = await response.text();
-        throw new Error(error);
+        const errorData = await response.json();
+        setError(errorData.message || 'Error al iniciar sesión. Intenta de nuevo.');
       }
     } catch (error) {
       console.error(error);
-      setError('Error al iniciar sesión. Intenta de nuevo.');
+      setError('Error al iniciar sesión. Por favor, verifica tu conexión y vuelve a intentarlo.');
+    }
+  };
+
+  const fetchProtectedData = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/store', { // Reemplaza con tu ruta protegida
+      method: 'GET', // Ajusta según sea necesario (GET, POST, PUT, etc.)
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        // Incluye otros encabezados según sea necesario
+      },
+    });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data); // Manejo de la respuesta
+      } else {
+        throw new Error('No se pudo acceder a los datos protegidos');
+      }
+    } catch (error) {
+      console.error('Error al acceder a los datos protegidos:', error);
     }
   };
 
@@ -56,7 +78,7 @@ const LoginComponent = () => {
             <h1>INICIA SESIÓN EN TU CUENTA</h1>
             <form onSubmit={handleSubmit} className="login-form">
               <div className="input-group">
-                <img src={loginUserIcone} alt="User Icon" className="input-icon" />
+                <img src={loginUserIcon} alt="User Icon" className="input-icon" />
                 <input
                   type="text"
                   value={username}
@@ -64,12 +86,10 @@ const LoginComponent = () => {
                   required
                   placeholder="Usuario"
                   className="input-field"
-                  style={{ borderBottom: '1px solid #000' }}
                 />
-                <AlertComponent message={usernameError} />
               </div>
               <div className="input-group">
-                <img src={loginPasswordIcone} alt="Password Icon" className="input-icon" />
+                <img src={loginPasswordIcon} alt="Password Icon" className="input-icon" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
@@ -81,16 +101,12 @@ const LoginComponent = () => {
                 <button onClick={toggleShowPassword} type="button" className="password-toggle">
                   <img src={eyeIcon} alt="Toggle Password" />
                 </button>
-                <AlertComponent message={passwordError} />
               </div>
-              <button type="submit" className='loginButton'>Iniciar Sesión</button>
+              <button type="submit" className="loginButton">Iniciar Sesión</button>
+              {error && <AlertComponent message={error} />}
               <p className="login-register-link">
                 ¿No trabajas con Kosmo? <span onClick={() => navigate('/registrarse')}>Regístrate aquí</span>
               </p>
-              {error && <AlertComponent message={error} />}
-              <div className="login-robot">
-                <img src={loginBasicBot} alt="Kosmo Bot" className="floating-robot" />
-              </div>
             </form>
           </div>
         </div>

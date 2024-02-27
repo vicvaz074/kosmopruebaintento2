@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const response = await fetch('/verifyToken', { // Asegúrate de usar la URL correcta de tu API
+          const response = await fetch('/api/verifyToken', { // Asegúrate de usar la URL correcta de tu API
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
