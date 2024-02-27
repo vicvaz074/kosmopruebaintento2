@@ -7,7 +7,7 @@ const PrivateRoute = ({ children }) => {
   const { isAuthenticated } = useAuth(); // Utiliza useAuth para obtener el estado de autenticación
 
   // Redirige a login si no está autenticado, de lo contrario, renderiza los children
-  return isAuthenticated ? children : <Navigate to="/store" replace />;
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoute;
