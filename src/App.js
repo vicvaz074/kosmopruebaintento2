@@ -84,7 +84,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
 
   const { darkMode, toggleDarkMode } = useDarkMode();
-  const { isAuthenticated, logout } = useAuth();
+  const { setIsAuthenticated } = useContext(AuthContext);
 
 
   const closeNav = () => {
@@ -93,13 +93,30 @@ function App() {
 
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      // Aquí lógica para validar el token con el servidor o actualizar el estado de autenticación directamente
-      // Puede incluir establecer el token en el estado global o en el contexto de autenticación
-    }
-  }, []);
-  
+    const verifyToken = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          // Asegúrate de configurar la URL de acuerdo a tu backend
+          const response = await axios.get('/verify-token', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          if (response.data.isAuthenticated) {
+            setIsAuthenticated(true);
+          } else {
+            setIsAuthenticated(false);
+          }
+        } catch (error) {
+          console.error("Error al verificar el token", error);
+          setIsAuthenticated(false);
+        }
+      }
+    };
+
+    verifyToken();
+  }, [setIsAuthenticated]);
   
   
   
