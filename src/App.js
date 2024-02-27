@@ -27,8 +27,7 @@ import KosmoModalBot from './KosmoModalBot';
 import StoreComponent from './StoreComponent';
 import { Link } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
-
-
+import { useAuth, AuthProvider } from './AuthContext'; // Ajusta la ruta según sea necesario
 
 const KosmoCustomizationComponent = () => {
   const [outfitIndex, setOutfitIndex] = useState(0);
@@ -83,10 +82,25 @@ function App() {
   const [isHovering, setIsHovering] = useState(false);
   const [navExpanded, setNavExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
   const { darkMode, toggleDarkMode } = useDarkMode();
+  const { isAuthenticated, logout } = useAuth();
+
+
   const closeNav = () => {
     setNavExpanded(false);
   };
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Aquí lógica para validar el token con el servidor o actualizar el estado de autenticación directamente
+      // Puede incluir establecer el token en el estado global o en el contexto de autenticación
+    }
+  }, []);
+  
+  
   
   
 const ChatButton = ({ setShowModal }) => {
@@ -178,6 +192,7 @@ useEffect(() => {
 
 
   return (
+    <AuthProvider>
     <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
     <Router>
       <nav className={`navbar navbar-expand-lg fixed-top`}>
@@ -222,12 +237,26 @@ useEffect(() => {
             <li className="nav-item" onClick={closeNav}>
               <NavLink className="nav-link" to="/#contactanos">Contáctanos</NavLink>
             </li>
-            <li className="nav-item" onClick={closeNav}>
-              <NavLink className="nav-link" to="/login">Login</NavLink>
-            </li>
-            <li className="nav-item" onClick={closeNav}>
-              <NavLink className="nav-link" to="/registrarse">Registrarse</NavLink>
-            </li>
+            {isAuthenticated ? (
+                <>
+                  <li className="nav-item" onClick={closeNav}>
+                    <Link className="nav-link" to="/mi-sesion">Mi Sesión</Link>
+                  </li>
+                  <li className="nav-item" onClick={closeNav}>
+                    <button className="nav-link" onClick={logout}>Cerrar sesión</button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item" onClick={closeNav}>
+                    <NavLink className="nav-link" to="/login">Login</NavLink>
+                  </li>
+                  <li className="nav-item" onClick={closeNav}>
+                    <NavLink className="nav-link" to="/registrarse">Registrarse</NavLink>
+                  </li>
+                </>
+              )}
+
             <li className="nav-item" onClick={closeNav}>
               <div> {/* Ajusta el padding o el width según necesites */}
                 <button className="nav-link-button" onClick={toggleDarkMode}>
@@ -249,6 +278,7 @@ useEffect(() => {
       {showModal && <KosmoModalBot onClose={() => setShowModal(false)} />}
     </Router>
     </div>
+    </AuthProvider>
   );
 }
 
