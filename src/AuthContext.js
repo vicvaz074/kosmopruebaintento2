@@ -1,34 +1,35 @@
-import React, { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+// Otros imports si son necesarios
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
+
+// Aquí definimos el hook useAuth para que pueda ser usado en otros componentes
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // Agrega aquí la lógica para verificar el token
   useEffect(() => {
-    const verifyToken = async () => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        try {
-          const response = await axios.get('/verify-token', {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          setIsAuthenticated(response.data.isAuthenticated);
-        } catch (error) {
-          console.error("Error al verificar el token", error);
-          setIsAuthenticated(false);
-        }
-      }
-    };
-
-    verifyToken();
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Verificar el token con tu backend y actualizar el estado según sea necesario
+    }
   }, []);
 
+  const login = (token) => {
+    localStorage.setItem('token', token);
+    setIsAuthenticated(true);
+  };
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+  };
+
+  // Asegúrate de pasar todos los estados y funciones que quieras proveer
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

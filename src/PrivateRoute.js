@@ -1,59 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { useAuth, AuthProvider } from './AuthContext'; // Ajusta la ruta según sea necesario
+
 
 const PrivateRoute = ({ children }) => {
-  const [status, setStatus] = useState({
-    isLoading: true,
-    isAuthenticated: false,
-  });
-  const token = localStorage.getItem('token');
+  const { isAuthenticated } = useAuth(); // Utiliza useAuth para obtener el estado de autenticación
 
-  useEffect(() => {
-    console.log('Inicio de la verificación del token...');
-
-    const verifyToken = async () => {
-      if (!token) {
-        console.log('No se encontró token: Usuario NO autenticado.');
-        setStatus({ isLoading: false, isAuthenticated: false });
-        return;
-      }
-
-      try {
-        const response = await fetch('https://kosmov2-c8cfe0aa7eb5.herokuapp.com/verify-token', {
-          method: 'GET', // Método GET para verificar el token
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token // Asegúrate de enviar el token
-          }
-        });
-        if (response.ok) {
-          console.log('Token verificado: Usuario autenticado.');
-          setStatus({ isLoading: false, isAuthenticated: true });
-        } else {
-          console.log('Token no válido o expirado: Usuario NO autenticado.');
-          setStatus({ isLoading: false, isAuthenticated: false });
-        }
-      } catch (error) {
-        console.error('Error durante la verificación del token:', error);
-        setStatus({ isLoading: false, isAuthenticated: false });
-      }
-    };
-
-    verifyToken();
-  }, [token]); // Dependencia: token para reaccionar a cambios
-
-  if (status.isLoading) {
-    console.log('Cargando: Verificando autenticación...');
-    return <div>Loading...</div>; // Considera usar un spinner o componente de carga aquí
-  }
-
-  if (!status.isAuthenticated) {
-    console.log('Redirigiendo a login: No autenticado.');
-    return <Navigate to="/login" replace />;
-  }
-
-  console.log('Acceso concedido a la ruta protegida.');
-  return children; // Renderiza el componente hijo si el usuario está autenticado
+  // Redirige a login si no está autenticado, de lo contrario, renderiza los children
+  return isAuthenticated ? children : <Navigate to="/store" replace />;
 };
 
 export default PrivateRoute;
