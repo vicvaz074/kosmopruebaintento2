@@ -1,8 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
-const AuthContext = createContext();
-
-export const useAuth = () => useContext(AuthContext);
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -12,22 +11,14 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const response = await fetch('/verifyToken', { // Asegúrate de usar la URL correcta de tu API
-            method: 'POST',
+          const response = await axios.get('/verify-token', {
             headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`,
-            },
+              Authorization: `Bearer ${token}`
+            }
           });
-          const data = await response.json();
-          if (data.isValid) {
-            setIsAuthenticated(true);
-          } else {
-            localStorage.removeItem('token');
-            setIsAuthenticated(false);
-          }
+          setIsAuthenticated(response.data.isAuthenticated);
         } catch (error) {
-          console.error('Error verifying token:', error);
+          console.error("Error al verificar el token", error);
           setIsAuthenticated(false);
         }
       }
@@ -36,20 +27,9 @@ export const AuthProvider = ({ children }) => {
     verifyToken();
   }, []);
 
-  const login = (token) => {
-    localStorage.setItem('token', token);
-    setIsAuthenticated(true);
-  };
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    setIsAuthenticated(false);
-  };
-
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
